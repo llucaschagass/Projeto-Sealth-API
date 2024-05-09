@@ -1,5 +1,6 @@
 package com.sealth.sealthapi.controllers;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -11,7 +12,7 @@ import java.util.Random;
 @RestController
 public class MedicinesController {
 
-    private final List<String> pdfList = Arrays.asList("paracetamol", "omeprazol", "amoxicilina", "atorvastatina", "metformina");
+    private final List<String> pdfList = Arrays.asList("Paracetamol", "Omeprazol", "Amoxicilina", "Atorvastatina", "Metformina");
 
     @GetMapping("/medicines/pdf")
     public List<String> getRandomPDFs() {
