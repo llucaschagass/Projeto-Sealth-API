@@ -11,10 +11,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping("/health")
 public class HealthController {
-
+    @Autowired
     private final HealthService healthService;
 
-    @Autowired
     public HealthController(HealthService healthService) {
         this.healthService = healthService;
     }
