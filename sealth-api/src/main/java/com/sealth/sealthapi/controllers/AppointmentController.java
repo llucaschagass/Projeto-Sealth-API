@@ -35,13 +35,13 @@ public class AppointmentController {
     }
 
     @PutMapping("/{appointmentId}/update")
-    public ResponseEntity<Appointment> updateAppointment(@PathVariable String appointmentId, @RequestBody UpdateAppointmentRequestDTO request) {
+    public ResponseEntity<Appointment> updateAppointment(@PathVariable Long appointmentId, @RequestBody UpdateAppointmentRequestDTO request) {
         Appointment updatedAppointment = appointmentService.updateAppointment(appointmentId, request);
         return new ResponseEntity<>(updatedAppointment, HttpStatus.OK);
     }
 
     @DeleteMapping("/{appointmentId}/cancel")
-    public ResponseEntity<Void> cancelAppointment(@PathVariable String appointmentId) {
+    public ResponseEntity<Void> cancelAppointment(@PathVariable Long appointmentId) {
         appointmentService.cancelAppointment(appointmentId);
         return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
