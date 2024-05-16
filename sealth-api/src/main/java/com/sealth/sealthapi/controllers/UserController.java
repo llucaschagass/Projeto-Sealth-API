@@ -1,5 +1,6 @@
 package com.sealth.sealthapi.controllers;
 
+import com.sealth.sealthapi.domain.user.User;
 import com.sealth.sealthapi.dto.UpdateUserRequestDTO;
 import com.sealth.sealthapi.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/api/users")
+@RequestMapping("/user")
 public class UserController {
 
     private final UserService userService;
@@ -26,6 +27,21 @@ public class UserController {
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar os dados do usuário: " + e.getMessage());
+        }
+    }
+
+    @GetMapping("/{userId}")
+    public ResponseEntity<?> getUserById(@PathVariable String userId) {
+        try {
+            User user = userService.getUserById(userId);
+            if (user != null) {
+                return ResponseEntity.ok(user);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("Erro ao obter os dados do usuário: " + e.getMessage());
         }
     }
 }

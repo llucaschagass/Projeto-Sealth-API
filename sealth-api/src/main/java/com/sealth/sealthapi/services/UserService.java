@@ -6,6 +6,7 @@ import com.sealth.sealthapi.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -24,5 +25,10 @@ public class UserService {
         user.setEmail(request.email());
         user.setPassword(request.password());
         return userRepository.save(user);
+    }
+
+    public User getUserById(String userId) {
+        Optional<User> optionalUser = userRepository.findById(userId);
+        return optionalUser.orElse(null);
     }
 }
