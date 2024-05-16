@@ -1,4 +1,4 @@
 package com.sealth.sealthapi.dto;
 
-public record UpdateUserRequestDTO(String name, String email, String password) {
+public record UpdateUserRequestDTO(String email, String name, String password) {
 }
