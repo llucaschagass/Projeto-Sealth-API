@@ -1,5 +1,6 @@
 package com.sealth.sealthapi.controllers;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sealth.sealthapi.domain.user.User;
 import com.sealth.sealthapi.dto.UpdateUserRequestDTO;
 import com.sealth.sealthapi.services.UserService;
@@ -7,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/user")
@@ -23,7 +27,11 @@ public class UserController {
     public ResponseEntity<String> updateUser(@PathVariable String userId, @RequestBody UpdateUserRequestDTO request) {
         try {
             userService.updateUser(userId, request);
-            return ResponseEntity.ok("Dados do usuário atualizados com sucesso!");
+            Map<String, String> response = new HashMap<>();
+            response.put("message", "Dados atualizados com sucesso!");
+            ObjectMapper objectMapper = new ObjectMapper();
+            String jsonResponse = objectMapper.writeValueAsString(response);
+            return ResponseEntity.ok(jsonResponse);
         } catch (Exception e) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
                     .body("Erro ao atualizar os dados do usuário: " + e.getMessage());
